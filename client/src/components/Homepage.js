@@ -19,9 +19,9 @@ const Homepage = () => {
                 }
             })
         const data = await res.json();
-        console.log(data.name)
+        console.log(data)
             if (res.status === 400) {
-                throw new Error();
+                throw new Error(data.error);
             }
             setName(data.name);
             
@@ -29,7 +29,7 @@ const Homepage = () => {
             localStorage.removeItem('token')
             localStorage.removeItem('userEmail')
             alert(e)
-            history.push('/login');
+            // history.push('/login');
         }
         
         

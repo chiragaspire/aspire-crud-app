@@ -58,14 +58,7 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
-userSchema.methods.toJSON =  function(){
-    const user = this;
-    const userObject = user.toObject();
-    delete userObject.password;
-    delete userObject.tokens;
-    delete userObject.avatar;
-    return userObject;
-}
+
 
 // removing task when user deleted
 userSchema.pre('remove', async function (next) {

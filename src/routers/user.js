@@ -10,8 +10,8 @@ router.post('/register', async(req, res) => {
     console.log(user);
     try {
         await user.save()
-        const token=await user.generateToken()
-        res.status(201).send({ user,token})
+        // const token=await user.generateToken()
+        res.status(201).send(user)
     }
     catch (e) {
 
@@ -27,15 +27,18 @@ router.post('/login', async(req, res) => {
     console.log(req.body)
     try {
         const user = await User.findOne({ email: req.body.email });
+        
+        if (!user ) {
+            throw new Error()
+        }
         const ismatch = await bcrypt.compare(req.body.password, user.password)
-        console.log(ismatch)
-        if (!user || !ismatch) {
+        if (!ismatch ) {
             throw new Error()
         }
         const token = await user.generateToken();
         res.status(200).send({user,token});
     } catch (error) {
-        console.log(error)
+        
         res.status(400).send({error:"Invalid Username or Password!"});
     }
     
@@ -57,7 +60,7 @@ router.get('/getUsers/me',auth, async(req, res) => {
     
 })
 
-router.patch('/updateUser/:email',auth, async(req, res) => {
+router.patch('/updateUser/me',auth, async(req, res) => {
     const updates = Object.keys(req.body);
     const allowUpdates = ['name', 'age', 'email', 'password'];
     const isValidateField = updates.every((update) => {

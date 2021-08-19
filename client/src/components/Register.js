@@ -48,12 +48,11 @@ const Register = () => {
             if (res.status === 400) {
                 throw new Error(data.error)
             }
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("userEmail", email);
+            
             alert("User Registation Successfully!!")
             handleReset()
             
-            history.push('/homepage')
+            history.push('/login')
         } catch (e)
         {
                 alert(e)

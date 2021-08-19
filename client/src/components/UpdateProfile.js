@@ -12,19 +12,28 @@ const UpdateProfile = () => {
     const token = localStorage.getItem('token');
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
-            const res =await fetch(`/getUsers/${userEmail}`,{
+        try {
+            const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
-                    'Authorization':`Bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
-        const data = await res.json();
-        console.log(data)
-        setName(data.name);
-        setEmail(data.email);
-        setPassword(data.password);
-        
+            const data = await res.json();
+            console.log(data)
+            if (res.status === 400) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('userEmail')
+                throw new Error(data.error);
+            }
+            setName(data.name);
+            setEmail(data.email);
+            setPassword(data.password);
+        }
+    catch (e) {
+        alert(e)
+    }
     }
     useEffect(() => {
 
@@ -47,7 +56,7 @@ const UpdateProfile = () => {
         
         const setData = async () => {
             try {  
-                const res = await fetch(`/updateUser/${userEmail}`, {
+                const res = await fetch(`/updateUser/me`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json',
