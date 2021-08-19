@@ -18,12 +18,13 @@ const Homepage = () => {
                     'Authorization':`Bearer ${token}`
                 }
             })
-            console.log('rs : ', res);
+            console.log('rs : ', res.json());
+            if (res.status === 400) {
+                throw new Error();
+            }
         const data = await res.json();
         console.log(data)
-            if (res.status === 400) {
-                throw new Error(data.error);
-            }
+            
             
             setName(data.name);
             
