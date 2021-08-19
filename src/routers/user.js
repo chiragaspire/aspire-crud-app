@@ -44,7 +44,7 @@ router.post('/login', async(req, res) => {
     
 })
 
-router.get('/getUsers/:email',auth, async(req, res) => {
+router.get('/getUsers/:email', async(req, res) => {
     
     try {  
         // console.log(req.user)
