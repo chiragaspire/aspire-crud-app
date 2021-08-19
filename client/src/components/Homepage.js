@@ -31,7 +31,7 @@ const Homepage = () => {
         } catch (e) {
             localStorage.removeItem('token')
             localStorage.removeItem('userEmail')
-            alert(e)
+            // alert(e)
             // history.push('/login');
         }
         
