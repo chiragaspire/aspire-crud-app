@@ -44,12 +44,12 @@ router.post('/login', async(req, res) => {
     
 })
 
-router.get('/getUsers/me',auth, async(req, res) => {
+router.get('/getUsers/:email',auth, async(req, res) => {
     
     try {  
-        console.log(req.user)
-        
-        res.status(200).send(req.user);
+        // console.log(req.user)
+        const user=await User.findOne({email:req.params.email})
+        res.status(200).send(user);
     } catch (error) {
         res.status(500).send({error:"failed to find users"});
     }

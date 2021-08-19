@@ -11,7 +11,7 @@ const Homepage = () => {
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
-            const res = await fetch(`/getUsers/me`, {
+            const res = await fetch(`/getUsers/${userEmail}`, {
                 method: 'GET',
                 headers: {
                     
