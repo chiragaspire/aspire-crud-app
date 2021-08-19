@@ -18,21 +18,18 @@ const Homepage = () => {
                    
                 }
             })
-            console.log('rs : ', res);
-            if (res.status === 400) {
-                throw new Error();
-            }
+            
         const data = await res.json();
         console.log(data)
             
             
-            setName(data.name);
+            // setName(data.name);
             
         } catch (e) {
-            localStorage.removeItem('token')
-            localStorage.removeItem('userEmail')
+            // localStorage.removeItem('token')
+            // localStorage.removeItem('userEmail')
             alert(e)
-            history.push('/login');
+            // history.push('/login');
         }
         
         
