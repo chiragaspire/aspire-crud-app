@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
-    app.get('*', (req, res) => {
+    app.get('/*', (req, res) => {
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     })
 }
@@ -31,3 +31,8 @@ app.use(userRouter);
 
 module.exports = app;
 
+// git init
+// git add . 
+// git commit -m 'sdfsd'
+// git push -u origin main
+// git push heroku main
