@@ -41,10 +41,10 @@ router.post('/login', async(req, res) => {
     
 })
 
-router.get('/getUsers/:email',auth, async(req, res) => {
+router.get('/getUsers/me',auth, async(req, res) => {
     console.log(req.params)
     try {
-        req.user = await User.findOne({email:req.params.email});
+        
         
         console.log(req.user)
     

@@ -11,7 +11,7 @@ const Homepage = () => {
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
-            const res = await fetch(`/getUsers/${userEmail}`, {
+            const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -20,9 +20,9 @@ const Homepage = () => {
             })
         const data = await res.json();
         console.log(data.name)
-            // if (res.status === 400) {
-            //     throw new Error("Please Authenticate");
-            // }
+            if (res.status === 400) {
+                throw new Error("Please Authenticate");
+            }
             setName(data.name);
             
         } catch (e) {
@@ -48,7 +48,7 @@ const Homepage = () => {
             
             <Card>
                 <div className={classes.typography}>
-                    <h1>Welcome {name}</h1>
+                    <h1>Welcome { name}</h1>
                 </div>
             </Card>
            
