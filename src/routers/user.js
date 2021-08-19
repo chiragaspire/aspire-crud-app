@@ -47,7 +47,7 @@ router.get('/getUsers/:email',auth, async(req, res) => {
         req.user = await User.findOne({email:req.params.email});
         
         console.log(req.user)
-        
+    
         
         res.status(200).send(req.user);
     } catch (error) {

@@ -26,10 +26,10 @@ const Homepage = () => {
             setName(data.name);
             
         } catch (e) {
-            localStorage.removeItem('token')
-            localStorage.removeItem('userEmail')
+            // localStorage.removeItem('token')
+            // localStorage.removeItem('userEmail')
             alert(e)
-            history.push('/login');
+            // history.push('/login');
         }
         
         
