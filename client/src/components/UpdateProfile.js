@@ -99,18 +99,13 @@ const UpdateProfile = () => {
                 
                 alert("User deleted successfully")
                 history.push('/login')
-                
             } catch (e)
             {
-                return alert(e)
+                alert(e)
             }
         }
         
-        setData().then(() => {
-            
-        }).catch(e => {
-            alert(e)
-        })
+        setData()
     }
     
     const nameHandler = (e) => {
