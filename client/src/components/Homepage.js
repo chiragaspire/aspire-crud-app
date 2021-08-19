@@ -14,7 +14,7 @@ const Homepage = () => {
             const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
-                    'content-type': 'application/json',
+                    
                     'Authorization':`Bearer ${token}`
                 }
             })
