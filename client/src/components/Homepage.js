@@ -15,7 +15,7 @@ const Homepage = () => {
                 method: 'GET',
                 headers: {
                     
-                    'Authorization':`Bearer ${token}`
+                   
                 }
             })
             console.log('rs : ', res);
@@ -42,7 +42,7 @@ const Homepage = () => {
         fetchData();
     
     },[token])    
-    if (token === null) {
+    if (token === '') {
         return <Redirect to="/login" />
     }
     
