@@ -3,9 +3,7 @@ const router = new express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const auth = require('../middleware/auth');
-router.get('/testing', (req, res) => {
-    res.send({body:"hello from express"})
-})
+const path = require('path');
 
 router.post('/register', async(req, res) => {
     const user = new User(req.body);
@@ -97,5 +95,7 @@ router.delete('/deleteUser/me',auth, async(req, res) => {
         res.status(500).send({error:"Failed to update information"});
     }
 })
+
+
 
 module.exports = router;
