@@ -10,7 +10,7 @@ const Homepage = () => {
     let token
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
-        try {
+        
             const res = await fetch(`/getUsers/${userEmail}`, {
                 method: 'GET',
                 headers: {
@@ -21,21 +21,11 @@ const Homepage = () => {
             
         const data = await res.json();
         console.log(data)
+        setName(data.name);
             
-            
-            // setName(data.name);
-            
-        } catch (e) {
-            // localStorage.removeItem('token')
-            // localStorage.removeItem('userEmail')
-            alert(e)
-            // history.push('/login');
-        }
-        
-        
     }
-    useEffect(async() => {
-        token = await localStorage.getItem('token');
+    useEffect(() => {
+        token =  localStorage.getItem('token');
         fetchData();
     
     },[token])    
