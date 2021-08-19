@@ -21,7 +21,7 @@ const Homepage = () => {
         const data = await res.json();
         console.log(data.name)
             if (res.status === 400) {
-                throw new Error("Please Authenticate");
+                throw new Error();
             }
             setName(data.name);
             
