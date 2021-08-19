@@ -23,13 +23,13 @@ const Homepage = () => {
             if (res.status === 400) {
                 throw new Error("Please Authenticate");
             }
-            setName(data.name);
+            setName(data.user.name);
             
         } catch (e) {
-            // localStorage.removeItem('token')
-            // localStorage.removeItem('userEmail')
+            localStorage.removeItem('token')
+            localStorage.removeItem('userEmail')
             alert(e)
-            // history.push('/login');
+            history.push('/login');
         }
         
         
