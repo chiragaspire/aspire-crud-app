@@ -11,7 +11,7 @@ const Homepage = () => {
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
-            const res = await fetch(`https://aspire-crud-app.herokuapp.com/getUsers/me`, {
+            const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -26,10 +26,10 @@ const Homepage = () => {
             setName(data.name);
             
         } catch (e) {
-            // localStorage.removeItem('token')
-            // localStorage.removeItem('userEmail')
+            localStorage.removeItem('token')
+            localStorage.removeItem('userEmail')
             alert(e)
-            // history.push('/login');
+            history.push('/login');
         }
         
         
