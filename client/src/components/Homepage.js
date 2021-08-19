@@ -23,6 +23,9 @@ const Homepage = () => {
             if (res.status === 400) {
                 throw new Error(data.error);
             }
+            if (res.status === 304) {
+                throw new Error("not found");
+            }
             setName(data.name);
             
         } catch (e) {
