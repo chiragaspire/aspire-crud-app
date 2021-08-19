@@ -7,7 +7,7 @@ const Homepage = () => {
     const history = useHistory();
     const [name, setName] = useState('');
    
-    const token = localStorage.getItem('token');
+    let token
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
@@ -37,11 +37,11 @@ const Homepage = () => {
         
         
     }
-    useEffect(() => {
-
+    useEffect(async() => {
+        token = await localStorage.getItem('token');
         fetchData();
     
-    },[])    
+    },[token])    
     if (token === null) {
         return <Redirect to="/login" />
     }

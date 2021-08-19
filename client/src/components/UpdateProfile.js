@@ -9,7 +9,7 @@ const UpdateProfile = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
-    const token = localStorage.getItem('token');
+    let token = localStorage.getItem('token');
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
