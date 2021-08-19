@@ -45,17 +45,12 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/getUsers/me',auth, async(req, res) => {
-    console.log(req.params)
-    try {
-        
-        
-        console.log(req.user)
     
-        
+    try {  
+        console.log(req.user)
         res.status(200).send(req.user);
     } catch (error) {
-        console.log(error)
-        res.status(400).send(error);
+        res.status(400).send({error:"failed to find users"});
     }
     
 })
