@@ -99,9 +99,10 @@ const UpdateProfile = () => {
                 
                 alert("User deleted successfully")
                 history.push('/login')
+                
             } catch (e)
             {
-                alert(e)
+                return alert(e)
             }
         }
         
