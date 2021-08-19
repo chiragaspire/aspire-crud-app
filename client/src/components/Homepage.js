@@ -18,7 +18,7 @@ const Homepage = () => {
                     'Authorization':`Bearer ${token}`
                 }
             })
-            console.log('rs : ', res.json());
+            console.log('rs : ', res);
             if (res.status === 400) {
                 throw new Error();
             }
