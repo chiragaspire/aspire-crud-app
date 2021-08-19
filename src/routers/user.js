@@ -52,7 +52,7 @@ router.get('/getUsers/:email',auth, async(req, res) => {
         res.status(200).send(req.user);
     } catch (error) {
         console.log(error)
-        res.status(400).send({error:"Invalid Username or Password!"});
+        res.status(400).send(error);
     }
     
 })
