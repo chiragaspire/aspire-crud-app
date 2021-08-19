@@ -19,17 +19,17 @@ const Homepage = () => {
                 }
             })
         const data = await res.json();
-        console.log(data)
+        console.log(data.name)
             if (res.status === 400) {
                 throw new Error("Please Authenticate");
             }
-            setName(data.user.name);
+            setName(data.name);
             
         } catch (e) {
-            localStorage.removeItem('token')
-            localStorage.removeItem('userEmail')
+            // localStorage.removeItem('token')
+            // localStorage.removeItem('userEmail')
             alert(e)
-            history.push('/login');
+            // history.push('/login');
         }
         
         
