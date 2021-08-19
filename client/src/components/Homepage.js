@@ -20,9 +20,9 @@ const Homepage = () => {
             })
         const data = await res.json();
         console.log(data.name)
-            if (res.status === 400) {
-                throw new Error("Please Authenticate");
-            }
+            // if (res.status === 400) {
+            //     throw new Error("Please Authenticate");
+            // }
             setName(data.name);
             
         } catch (e) {
