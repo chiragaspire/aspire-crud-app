@@ -5,10 +5,28 @@ import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
   var token = localStorage.getItem('token');
-  const logoutHandler = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userEmail')
-    token=null
+  const logoutHandler = async() => {
+
+    try {
+      const res = await fetch('/logout/me', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'Authorization':`Bearer ${token}`
+        }
+      })
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+    } catch (e) {
+      alert(e);
+      localStorage.removeItem('token')
+      localStorage.removeItem('userEmail')
+      token=null
+    }
+
+    
   }
   const homeHandler = () => {
     

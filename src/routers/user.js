@@ -67,7 +67,7 @@ router.patch('/updateUser/me',auth, async(req, res) => {
         return res.status(400).send("Please update valid field!");
     }
     try {
-        req.user = await User.findOne({ email:req.params.email });
+        
         updates.forEach((update)=> req.user[update]=req.body[update])
         
         await req.user.save();
@@ -76,6 +76,17 @@ router.patch('/updateUser/me',auth, async(req, res) => {
     } catch (error) {
         console.log(error)
         res.status(400).send({error:"Failed to update information"});
+    }
+})
+
+router.post('/logout/me', auth, async(req, res) => {
+    try {
+        req.user.tokens = await req.user.tokens.filter((tokens) => {
+            return tokens.token !== req.token
+         })
+         await req.user.save()
+    } catch (error) {
+        res.status(500).send({ error: error });
     }
 })
 
