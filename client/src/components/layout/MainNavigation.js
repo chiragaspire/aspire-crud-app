@@ -20,9 +20,11 @@ const MainNavigation = () => {
       if (res.status===500) {
         throw new Error(data.error);
       }
+      alert('Logout successfully.')
       localStorage.removeItem('token')
       localStorage.removeItem('userEmail')
       token = null
+      
       history.push('/login');
     } catch(e) {
       
