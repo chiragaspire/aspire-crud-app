@@ -7,15 +7,15 @@ const Homepage = () => {
     const history = useHistory();
     const [name, setName] = useState('');
    
-    let token
+    let token=localStorage.getItem('token')
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
-        
-            const res = await fetch(`/getUsers/${userEmail}`, {
+        try{
+            const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
-                    
-                   
+                    'content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
             })
             
@@ -23,12 +23,17 @@ const Homepage = () => {
         console.log(data)
         setName(data.name);
             
+        }catch(e){
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
+            alert(e);
+            history.push('/login');
+        }
+           
     }
     useEffect(() => {
-        token =  localStorage.getItem('token');
         fetchData();
-    
-    },[token])    
+    },[])    
     if (token === '') {
         return <Redirect to="/login" />
     }

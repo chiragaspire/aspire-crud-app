@@ -40,7 +40,7 @@ const Login = () => {
                 throw new Error(data.error)
             }
             console.log(data)
-            token = localStorage.setItem("token", data.token);
+            token = localStorage.setItem("token", 'fgguyhjgdsfgfiuguoisdhfoisdhfioseyho');
             localStorage.setItem("userEmail", email);
             alert("User Login Successfully!!")
             handleReset()

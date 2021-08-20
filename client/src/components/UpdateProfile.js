@@ -13,7 +13,7 @@ const UpdateProfile = () => {
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
         try {
-            const res = await fetch(`/getUsers/${userEmail}`, {
+            const res = await fetch(`/getUsers/me`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
@@ -33,6 +33,7 @@ const UpdateProfile = () => {
         }
     catch (e) {
         alert(e)
+        history.push('/login');
     }
     }
     useEffect(() => {
@@ -67,7 +68,7 @@ const UpdateProfile = () => {
             const data = await res.json();
                 console.log(data)
                 if (res.status === 400) {
-                    throw new Error()
+                    throw new Error(data.error)
                 }
                 localStorage.setItem('userEmail', email)
                 
