@@ -8,7 +8,7 @@ const UpdateProfile = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+    const [oldpassword, setOldpassword] = useState('');
     let token = localStorage.getItem('token');
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
@@ -30,6 +30,7 @@ const UpdateProfile = () => {
             setName(data.name);
             setEmail(data.email);
             setPassword(data.password);
+            setOldpassword(data.password);
         }
     catch (e) {
         alert(e)
@@ -48,7 +49,7 @@ const UpdateProfile = () => {
     const handleUpdate = (e) => {
         e.preventDefault();
         let body;
-        if (!password) {
+        if (password === oldpassword) {
             body = JSON.stringify({ name, email })
         }
         else {
