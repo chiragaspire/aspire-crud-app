@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { NavLink ,Link, Redirect} from 'react-router-dom';
+import { NavLink ,Link, Redirect,useHistory} from 'react-router-dom';
 
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
+  const history = useHistory();
   var token = localStorage.getItem('token');
   const logoutHandler = async() => {
 
@@ -16,14 +17,17 @@ const MainNavigation = () => {
         }
       })
       const data = await res.json();
-      if (data.error) {
+      if (res.status===500) {
         throw new Error(data.error);
       }
-    } catch (e) {
-      alert(e);
       localStorage.removeItem('token')
       localStorage.removeItem('userEmail')
-      token=null
+      token = null
+      history.push('/login');
+    } catch(e) {
+      
+      alert(e);
+      
     }
 
     
@@ -31,11 +35,11 @@ const MainNavigation = () => {
   const homeHandler = () => {
     
   }
-  useEffect(() => {
+  
     if (token == null) {
       <Redirect to='/login' />
     }
-  },[token])
+ 
   
   return (
     <header className={classes.header}>
