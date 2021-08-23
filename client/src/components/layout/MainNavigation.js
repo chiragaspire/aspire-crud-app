@@ -26,13 +26,9 @@ const MainNavigation = () => {
       token = null
       
       history.push('/login');
-    } catch(e) {
-      
+    } catch(e) {   
       alert(e);
-      
     }
-
-    
   }
   const homeHandler = () => {
     
@@ -48,6 +44,14 @@ const MainNavigation = () => {
       <div className={classes.logo}><img  src="/img/mainlogo.jpg" /></div>
       <nav className={classes.nav}>
         <ul>
+        <li>
+            
+            {/* <button onClick={logoutHandler} className={classes.button}> */}
+              <NavLink  to='/admin' activeClassName={classes.active}>Adminpage
+              </NavLink>
+            {/* </button> */}
+            
+          </li>
           {!token && (<li>
             
             {/* <button onClick={logoutHandler} className={classes.button}> */}

@@ -6,7 +6,7 @@ import Layout from './layout/Layout';
 const Homepage = () => {
     const history = useHistory();
     const [name, setName] = useState('');
-   
+    
     let token=localStorage.getItem('token')
     let userEmail = localStorage.getItem('userEmail');
     const fetchData = async () => {
@@ -34,7 +34,7 @@ const Homepage = () => {
     useEffect(() => {
         fetchData();
     },[])    
-    if (token === '') {
+    if (token === null) {
         return <Redirect to="/login" />
     }
     

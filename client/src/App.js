@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Admin from './components/Admin';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Notfound from './components/Notfound';
@@ -23,7 +24,9 @@ function App() {
       <Router>
         
         <Switch >
-        <Route exact path="/" component={ Login}/>
+          <Route exact path="/" component={Login} />
+          <Route path="/admin" component={Admin} />
+
           <Route path="/login" component={Login} />
           <Route  path="/register" component={ Register}/>
           <Route path="/homepage" component={Homepage} />

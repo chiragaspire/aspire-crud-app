@@ -56,6 +56,19 @@ router.get('/getUsers/me',auth, async(req, res) => {
     
 })
 
+router.get('/admingetdata',async(req, res) => {
+    
+    try {  
+        // console.log(req.user)
+        const user=await User.find({})
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(500).send({error:"failed to find users"});
+    }
+    
+})
+
+
 router.patch('/updateUser/me',auth, async(req, res) => {
     const updates = Object.keys(req.body);
     const allowUpdates = ['name', 'age', 'email', 'password'];
