@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
                 throw new Error("password must included password");
             }
         }
+    },usertype: {
+        type: String,
+        required: true,
+        
     },
     tokens: [{
         token: {

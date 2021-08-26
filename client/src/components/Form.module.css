@@ -23,7 +23,8 @@
   }
   
   .control input,
-  .control textarea {
+  .control textarea,
+  select {
     font: inherit;
     padding: 0.35rem;
     border-radius: 4px;
@@ -35,11 +36,19 @@
   }
   
   .control input:focus,
-  .control textarea:focus {
+  .control textarea:focus,
+  select:focus    
+  {
     background-color: #d3e6f3;
     outline-color: #3498db;
   }
   
+  /* select{
+    display:block;
+    width:100%;
+    padding:1rem;
+  } */
+
   .actions {
       margin-top: 2rem;
     text-align: center;
@@ -47,7 +56,8 @@
     border:0px;
   }
   
-  .actions button {
+  .actions button
+   {
       border-radius: 5px;
       border:1px solid #3498db;
       padding:0.5rem 1rem;
@@ -71,7 +81,9 @@
   outline: none;
   border:0px;
 }
-.actions_delete button{
+.actions_delete button,
+.actions .delete{
+  
   background-color: #e74c3c;
   border-radius: 5px;
       border:1px solid #e74c3c;
@@ -80,7 +92,8 @@
       
 }
 
-.actions_delete button:hover{
+.actions_delete button:hover,
+.actions .delete:hover{
   border:1px solid #c72918;
   background-color: #c72918;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch,Redirect } from 'react-router-dom';
 import Admin from './components/Admin';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
@@ -7,6 +7,8 @@ import Notfound from './components/Notfound';
 import Register from './components/Register';
 import UpdateProfile from './components/UpdateProfile';
 import Logout from './components/logout';
+import EditEmployee from './components/EditEmployee';
+import Navbar from './components/layout/Navbar';
 function App() {
   // const [data, setData] = useState('');
   // useEffect(() => {
@@ -20,13 +22,21 @@ function App() {
 
   return (
     <>
-    
+      
+      {/* <Router>
+      <Navbar />
+        <Switch >
+            <Route path="/login" component={Login} />
+        </Switch>
+        </Router> */}
       <Router>
         
         <Switch >
-          <Route exact path="/" component={Login} />
+        <Route path='/' exact>
+          <Redirect to='/login' />
+        </Route>
           <Route path="/admin" component={Admin} />
-
+          <Route path="/editEmployee/:email" component={EditEmployee} />
           <Route path="/login" component={Login} />
           <Route  path="/register" component={ Register}/>
           <Route path="/homepage" component={Homepage} />

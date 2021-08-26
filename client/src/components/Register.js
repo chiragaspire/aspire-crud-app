@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import classes from './Form.module.css';
 import Card from './UI/Card.js';
-import {useHistory} from 'react-router-dom' 
+import {useHistory,Redirect} from 'react-router-dom' 
 import Layout from './layout/Layout';
 const Register = () => {
     const history = useHistory();
+    let token = localStorage.getItem('token')
+    let user=localStorage.getItem('usertype')
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
-
+    const [usertype, setUsertype] = useState('employee');
     const nameHandler = (e) => {
         setName(e.target.value)
     }
@@ -28,18 +30,28 @@ const Register = () => {
         setPassword('');
         setCpassword('');
     }
+    const handleChangeEmployee = (e) => {
+        setUsertype('employee');
+    }
+    const handleChangeAdmin = (e) => {
+        setUsertype('admin');
+    }
+    const cancleHandler = () => {
+        history.push('/admin');
+    }
     const submitHandler = async(e) => {
         e.preventDefault();
         if (password !== cpassword) {
             return alert("Password must be same!!")
         }
+        
         try {
             const res =await fetch('/register', {
                 method: 'POST',
                 headers: {
                     "content-type":"application/json"
                 },
-                body:JSON.stringify({name,email,password})
+                body:JSON.stringify({name,email,password,usertype})
             })
             // if (!res.ok) {
             //     throw new Error("Error")
@@ -58,7 +70,9 @@ const Register = () => {
                 alert(e)
         }
     }
-    
+    if (token === null || user !== 'admin') {
+        return <Redirect to="/login" />
+    }
     return (
         <Layout >
         <Card>
@@ -105,9 +119,20 @@ const Register = () => {
                         minLength='7'
                     />
           </div>
-          <div className={classes.actions}>
-            <button  className='btn'>Register</button>
+          <div className={classes.control}>
+          <label for="users">Type of user:</label>
+
+          <select name={usertype}  id="users">
+            <option value="employee" onClick={handleChangeEmployee}>Employee</option>
+            <option value="admin" onClick={handleChangeAdmin}>Admin</option>
+            </select>
+
           </div>
+          <div className={classes.actions}>
+            <button  >Register</button>  &nbsp; &nbsp;
+            <button type="button" onClick={cancleHandler}  className={classes.delete}>Cancel</button>
+          </div>
+          
         </form>
         </Card>
         </Layout>

@@ -6,6 +6,7 @@ import classes from './MainNavigation.module.css';
 const MainNavigation = () => {
   const history = useHistory();
   var token = localStorage.getItem('token');
+  var usertype = localStorage.getItem('usertype');
   const logoutHandler = async() => {
 
     try {
@@ -23,6 +24,7 @@ const MainNavigation = () => {
       alert('Logout successfully.')
       localStorage.removeItem('token')
       localStorage.removeItem('userEmail')
+      localStorage.removeItem('usertype')
       token = null
       
       history.push('/login');
@@ -40,18 +42,19 @@ const MainNavigation = () => {
  
   
   return (
+    
     <header className={classes.header}>
       <div className={classes.logo}><img  src="/img/mainlogo.jpg" /></div>
       <nav className={classes.nav}>
         <ul>
-        <li>
+          {token && usertype==='admin' && (<li>
             
             {/* <button onClick={logoutHandler} className={classes.button}> */}
-              <NavLink  to='/admin' activeClassName={classes.active}>Adminpage
-              </NavLink>
+            <NavLink to='/admin' activeClassName={classes.active}>Adminpage
+            </NavLink>
             {/* </button> */}
             
-          </li>
+          </li>)}
           {!token && (<li>
             
             {/* <button onClick={logoutHandler} className={classes.button}> */}
@@ -60,19 +63,19 @@ const MainNavigation = () => {
             {/* </button> */}
             
           </li>)}
-          {!token && (<li>
+          {token && usertype==='admin' && (<li>
             {/* <button onClick={logoutHandler} className={classes.button}> */}
             <NavLink to='/register' activeClassName={classes.active}>
               Register
             </NavLink>
             {/* </button> */}
           </li>)}
-          {token && (<li>
+          {token && usertype==='employee' && (<li>
             {/* <button onClick={homeHandler} className={classes.button}> */}
               <NavLink to='/homepage' onClick={homeHandler} activeClassName={classes.active}> Home</NavLink> 
               {/* </button> */}
           </li>)}
-          {token && (<li>
+          {token && usertype==='employee' && (<li>
             {/* <button onClick={homeHandler} className={classes.button}> */}
               <NavLink to='/updateprofile' activeClassName={classes.active}> Update Profile</NavLink> 
               {/* </button> */}
@@ -85,6 +88,7 @@ const MainNavigation = () => {
         </ul>
       </nav>
     </header>
+
   );
 };
 

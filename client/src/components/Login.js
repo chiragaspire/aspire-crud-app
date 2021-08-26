@@ -5,14 +5,14 @@ import Layout from './layout/Layout';
 import Card from './UI/Card.js';
 const Login = () => {
     
-    let token = '';
-    token = localStorage.getItem('token');
-
+    
+    let token = localStorage.getItem('token')
+    let user=localStorage.getItem('usertype')
     const history = useHistory();
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
+    
     const emailHandler = (e) => {
         setEmail(e.target.value)
     }
@@ -42,18 +42,31 @@ const Login = () => {
             console.log(data)
             token = localStorage.setItem("token", data.token);
             localStorage.setItem("userEmail", email);
-            alert("User Login Successfully!!")
+            if (data.usertype === "admin") {
+                localStorage.setItem('usertype','admin')
+                alert("Admin Login Successfully!!")
+                history.push('/Admin')
+            } else {
+                localStorage.setItem('usertype','employee')
+                alert("User Login Successfully!!")
+                history.push('/homepage')
+            }
+            
             handleReset()
-            history.push('/homepage')
+            
         } catch (e)
         {
             alert(e)
         }
     }
     
-    // if (token) {
-    //     return <Redirect to="/homepage" />
-    // }
+    if (token && user==='employee') {
+        return <Redirect to="/homepage" />
+    }
+    if (token && user==='admin') {
+        return <Redirect to="/admin" />
+    }
+    
     return (
         <Layout >
         <Card>

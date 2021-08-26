@@ -11,6 +11,7 @@ const UpdateProfile = () => {
     const [oldpassword, setOldpassword] = useState('');
     let token = localStorage.getItem('token');
     let userEmail = localStorage.getItem('userEmail');
+    let user = localStorage.getItem('usertype');
     const fetchData = async () => {
         try {
             const res = await fetch(`/getUsers/me`, {
@@ -42,9 +43,7 @@ const UpdateProfile = () => {
         fetchData();
     
     },[])    
-    if (token === null) {
-        return <Redirect to="/login" />
-    }
+   
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -129,6 +128,10 @@ const UpdateProfile = () => {
         setPassword(e.target.value)
     }
    
+
+    if (token === null || user!=='employee') {
+        return <Redirect to="/login" />
+    }
     return (
         <Layout>
             
@@ -165,13 +168,15 @@ const UpdateProfile = () => {
                         minLength="7"
                     />
           </div>
-          
+          <div>
           <div className={classes.actions}>
-            <button onClick={handleUpdate} className='btn'>Update Details</button>
+            <button onClick={handleUpdate} >Update Details</button>&nbsp;&nbsp;
+            <button onClick={handleDelete} className={classes.delete} >Delate Account</button>
           </div>
           
           <div className={classes.actions_delete  }>
-            <button onClick={handleDelete} className='btn' >Delate Account</button>
+            
+          </div>
           </div>
         </form>
       </Card>

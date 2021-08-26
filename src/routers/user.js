@@ -6,7 +6,12 @@ const auth = require('../middleware/auth');
 const path = require('path');
 
 router.post('/register', async(req, res) => {
-    const user = new User(req.body);
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        usertype:req.body.usertype
+    });
     console.log(user);
     try {
         await user.save()
@@ -35,8 +40,9 @@ router.post('/login', async(req, res) => {
         if (!ismatch ) {
             throw new Error()
         }
+        const usertype = user.usertype;
         const token = await user.generateToken();
-        res.status(200).send({user,token});
+        res.status(200).send({user,token,usertype});
     } catch (error) {
         
         res.status(400).send({error:"Invalid Username or Password!"});
@@ -56,7 +62,27 @@ router.get('/getUsers/me',auth, async(req, res) => {
     
 })
 
-router.get('/admingetdata',async(req, res) => {
+router.get('/getdata/:email',auth,async(req,res)=>{
+    try {
+        if (!req.user) {
+            throw new Error("Please Authenticate!!");
+        }
+        console.log(req.params.email)
+        const user=await User.findOne({email:req.params.email});
+    if(!user){
+        throw new Error("User Not Found!!!");
+    }
+    console.log(user)
+
+     res.status(200).send(user);
+    }catch(e){
+        console.log(e)
+        res.status(400).send({error:e});
+    }
+    
+})
+
+router.get('/admingetdata',auth,async(req, res) => {
     
     try {  
         // console.log(req.user)
@@ -92,6 +118,32 @@ router.patch('/updateUser/me',auth, async(req, res) => {
     }
 })
 
+router.patch('/updateEmployee/:email', async(req, res) => {
+    const updates = Object.keys(req.body);
+    const allowUpdates = ['name', 'age', 'email', 'password'];
+    const isValidateField = updates.every((update) => {
+        return allowUpdates.includes(update);
+    })
+    console.log(isValidateField);
+    if (!isValidateField) {
+        return res.status(400).send("Please update valid field!");
+    }
+    try {
+        const user=await User.findOne({email:req.params.email});
+        if(!user){
+            throw new Error("User not found");
+        }
+        updates.forEach((update)=> user[update]=req.body[update])
+        
+        await user.save();
+
+        res.status(200).send(user);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({error:"Failed to update information"});
+    }
+})
+
 router.post('/logout/me', auth, async(req, res) => {
     try {
         req.user.tokens = await req.user.tokens.filter((tokens) => {
@@ -121,5 +173,23 @@ router.delete('/deleteUser/me',auth, async(req, res) => {
 })
 
 
+
+router.delete('/deletebyadmin/:email',async(req,res)=>{
+    try{
+        console.log(req.params.email)
+        const user=await User.findOne({email:req.params.email});
+    if(!user){
+        throw new Error("User Not Found!!!");
+    }
+    console.log(user)
+    
+    await user.remove();
+     res.status(200).send(user);
+    }catch(e){
+        console.log(e)
+        res.status(400).send({error:e});
+    }
+    
+})
 
 module.exports = router;

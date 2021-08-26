@@ -9,6 +9,7 @@ const Homepage = () => {
     
     let token=localStorage.getItem('token')
     let userEmail = localStorage.getItem('userEmail');
+    let user=localStorage.getItem('usertype')
     const fetchData = async () => {
         try{
             const res = await fetch(`/getUsers/me`, {
@@ -34,7 +35,7 @@ const Homepage = () => {
     useEffect(() => {
         fetchData();
     },[])    
-    if (token === null) {
+    if (token === null || user !== 'employee') {
         return <Redirect to="/login" />
     }
     

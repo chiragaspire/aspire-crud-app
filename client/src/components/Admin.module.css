@@ -1,0 +1,97 @@
+.card {
+ display: block;
+    padding: 1rem;
+    margin: 0 auto ;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    width: fit-content;
+    max-width: 95%;
+
+  }
+table{
+ display:block;
+ overflow-x: scroll;
+ border-radius: 6px;
+ font-size: 1rem;
+ -webkit-border-radius: 6px;
+ -moz-border-radius: 6px;
+ -ms-border-radius: 6px;
+ -o-border-radius: 6px;
+}
+
+table thead{
+  background-color: #3498db;
+  color:#fff;
+}
+table thead tr th,table tbody tr td{
+ min-width: 7rem;
+  
+}
+
+
+table thead tr th {
+  cursor: pointer;
+}
+
+
+
+.card .actions{
+  margin-bottom: 1rem;
+}
+.actions button
+{
+  border-radius: 5px;
+  border:1px solid #3498db;
+  padding:0.5rem 1rem;
+ 
+  color:#fff;
+  background-color: #3498db;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.actions button:hover{
+border:1px solid #1f74ac;
+background-color: #1f74ac;
+}
+
+.actions .delete{
+background-color: #e74c3c;
+border-radius: 5px;
+  border:1px solid #e74c3c;
+  padding:0.5rem 1rem;
+  
+  
+}
+
+.actions .delete:hover{
+border:1px solid #c72918;
+background-color: #c72918;
+}
+
+
+.icon{
+  display:block;
+  padding:1rem;
+  margin-left: 1rem;
+}
+
+@media only screen and (max-width: 748) {
+  
+  table{
+    font-size: 0.3rem 0.7rem;  
+    overflow-x:scroll;
+  }
+  
+
+.actions button,.actions .delete {
+    padding:0.2rem;
+     
+}
+
+
+}
+
