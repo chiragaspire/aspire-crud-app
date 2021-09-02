@@ -44,7 +44,7 @@ function stableSort(array, comparator) {
    const [data, setData] = useState([]);
    const [search, setSearch] = useState('');
    const [order, setOrder] = useState('asc');
-   const [orderBy,setOrderBy]=useState('name')
+   const [orderBy,setOrderBy]=useState('id')
    const [headers, setHeaders] = useState(heading);
    const [loading, setLoading] = useState(false);
    const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -180,21 +180,34 @@ function stableSort(array, comparator) {
 
 
   //  Paging
-
   let pageLength = searchData(data).length;
   let pagesize = parseInt(pageLength / rowsPerPage);
+   console.log(history.location);
+   let current = 1;
+   if (history.location.hash) {
+    current = history.location.hash.replace('#', '');
+     current = parseInt(current)
+    
+   }
+    
+
   const handleChangePrevPage = (event, newPage) => {
-    setPage(page-1);
+    setPage(page - 1);
+    current--
   };
   const handleChangeNextPage = (event, newPage) => {
-    setPage(page+1);
+    setPage(page + 1);
+    current=current+1
   };
    
    const handleChangePage = (p) => {
-    setPage(p)
+     
+     setPage(p)
+     current = p;
   }
-    
-
+    console.log(current)
+  
+   
   // const handleChangeRowsPerPage = (event) => {
   //   setRowsPerPage(parseInt(event.target.value, 10));
   //   setPage(0);
@@ -255,16 +268,20 @@ function stableSort(array, comparator) {
             <ul class="pagination">
                 
                   
-                {page > 0 && (<li class="page-item" onClick={handleChangePrevPage}><a class="page-link" href="#">Previous</a></li>
+                {page > 0 && (<li class="page-item "  onClick={handleChangePrevPage}><a class="page-link" href={`#${current-1}`}>Previous</a></li>
                 )}
-                  {Array(pagesize+1).fill(1).map((el, i) =>
-                    <li class="page-item" onClick={()=>handleChangePage(i)} key={i}><a class="page-link" href="#">{i+1}</a></li>
-                    )}
+                {Array(pagesize + 1).fill(1).map((el, i) => 
+            
+                  
+                    <li class="page-item " id="pages" onClick={() => handleChangePage(i)} key={i}><a class="page-link" href={`#${i + 1}`}>{i + 1}</a></li>
+                  
+                ) }
                 
-              { page<pagesize && (<li class="page-item" onClick={handleChangeNextPage}><a class="page-link" href="#">Next</a></li>
+              { page<pagesize && (<li class="page-item" onClick={handleChangeNextPage}><a class="page-link" href={`#${current+1}`}>Next</a></li>
               )}
               </ul>
-          </nav>
+            </nav>
+           
         </>
         )}
         

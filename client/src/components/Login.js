@@ -45,7 +45,7 @@ const Login = () => {
             if (data.usertype === "admin") {
                 localStorage.setItem('usertype','admin')
                 alert("Admin Login Successfully!!")
-                history.push('/Admin')
+                history.push('/admin')
             } else {
                 localStorage.setItem('usertype','employee')
                 alert("User Login Successfully!!")
