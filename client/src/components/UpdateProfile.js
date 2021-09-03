@@ -3,15 +3,20 @@ import React, { useState, useEffect } from 'react';
 import classes from './Form.module.css';
 import Card from './UI/Card.js';
 import Layout from './layout/Layout';
+import axios from 'axios';
 const UpdateProfile = () => {
     const history = useHistory();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [oldpassword, setOldpassword] = useState('');
+    const [file, setFile] = useState('');
     let token = localStorage.getItem('token');
     let userEmail = localStorage.getItem('userEmail');
     let user = localStorage.getItem('usertype');
+
+    const imageurl = `/users/${userEmail}/avatar`;
+    const hashUrl =Date.now()
     const fetchData = async () => {
         try {
             const res = await fetch(`/getUsers/me`, {
@@ -47,29 +52,35 @@ const UpdateProfile = () => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        let body;
-        if (password === oldpassword) {
-            body = JSON.stringify({ name, email })
+        const formData = new FormData();
+        if (file) {
+            formData.append('image', file);
         }
-        else {
-            body=JSON.stringify({ name, email,password })
+        
+        formData.append('name', name);
+        formData.append('email', email);
+        
+        if (password !== oldpassword) {
+            formData.append('password', password); 
         }
         
         const setData = async () => {
             try {  
-                const res = await fetch(`/updateUser/me`, {
+                const res = await axios.patch(`/updateUser/me`, formData,{
                     method: 'PATCH',
                     headers: {
-                        'content-type': 'application/json',
+                        "content-type":"multipart/form-data",
                         'Authorization':`Bearer ${token}`
                     },
-                    body
+                    
                 })
-            const data = await res.json();
-                console.log(data)
-                if (res.status === 400) {
+                const data = await res.data;
+                if (data.error) {
+                    console.log(data)
                     throw new Error(data.error)
                 }
+                console.log("res:",data)
+                
                 localStorage.setItem('userEmail', email)
                 
                 alert("User updated successfully")
@@ -128,6 +139,9 @@ const UpdateProfile = () => {
         setPassword(e.target.value)
     }
    
+    const profileHandler = (e) => {
+        setFile(e.target.files[0]);
+    }
 
     if (token === null || user!=='employee') {
         return <Redirect to="/login" />
@@ -137,6 +151,10 @@ const UpdateProfile = () => {
             
         <Card>
         <form >
+        <div className={classes.imgcontrol}>
+                    
+            <img src={`${imageurl}?${hashUrl}`}  alt="..."/>
+        </div>
         <div className={classes.control}>
             <label htmlFor='name'>Name</label>
             <input 
@@ -169,6 +187,17 @@ const UpdateProfile = () => {
                     />
           </div>
           <div>
+          <div className={classes.control}>
+            <label htmlFor='profile'>Profile Image</label>
+                    <input
+                        
+                        type='file'
+                        id='profile'
+                        
+                        onChange={profileHandler}
+                        
+                    />
+          </div>
           <div className={classes.actions}>
             <button onClick={handleUpdate} >Update Details</button>&nbsp;&nbsp;
             <button onClick={handleDelete} className={classes.delete} >Delate Account</button>

@@ -44,7 +44,7 @@ const MainNavigation = () => {
   return (
     
     <header className={classes.header}>
-      <div className={classes.logo}><img  src="/img/mainlogo.jpg" /></div>
+      <div className={classes.logo}><img  src="/img/mainlogo.jpg" />&nbsp; Aspire EMS</div>
       <nav className={classes.nav}>
         <ul>
           {token && usertype==='admin' && (<li>

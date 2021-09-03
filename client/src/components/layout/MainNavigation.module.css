@@ -48,6 +48,7 @@
     margin-left: 0.5rem;
     font-size: 1rem;
   }
+
 }
 
 
@@ -57,7 +58,10 @@
     width:2rem;
     height:2rem;
   }
-  
+  .logo {
+  font-size: 1rem;
+
+}
 }
 
 
@@ -69,6 +73,10 @@
   }
   .header {
     height: 3rem;
+  }
+  .logo {
+    font-size: 0.5rem;
+  
   }
 }
 

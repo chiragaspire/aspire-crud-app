@@ -6,11 +6,13 @@ require('./db/mongoose');
 const path = require('path');
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended:false}))
-app.use(cors());
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended:false
+  }))
+  app.use(cors());
 const clientPath = path.join(__dirname, '../client/build');
 app.use(express.static(clientPath));
 

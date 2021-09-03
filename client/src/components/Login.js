@@ -45,7 +45,7 @@ const Login = () => {
             if (data.usertype === "admin") {
                 localStorage.setItem('usertype','admin')
                 alert("Admin Login Successfully!!")
-                history.push('/admin')
+                history.push('/Admin')
             } else {
                 localStorage.setItem('usertype','employee')
                 alert("User Login Successfully!!")
@@ -71,7 +71,7 @@ const Login = () => {
         <Layout >
         <Card>
         <form onSubmit={submitHandler}>
-            
+                    
           <div className={classes.control}>
             <label htmlFor='email'>Email</label>
                     <input

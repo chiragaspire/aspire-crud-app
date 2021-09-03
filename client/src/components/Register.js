@@ -3,6 +3,7 @@ import classes from './Form.module.css';
 import Card from './UI/Card.js';
 import {useHistory,Redirect} from 'react-router-dom' 
 import Layout from './layout/Layout';
+import axios from 'axios';
 const Register = () => {
     const history = useHistory();
     let token = localStorage.getItem('token')
@@ -12,6 +13,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
     const [usertype, setUsertype] = useState('employee');
+    const [file, setFile] = useState('');
     const nameHandler = (e) => {
         setName(e.target.value)
     }
@@ -23,6 +25,9 @@ const Register = () => {
     }
     const cpasswordHandler = (e) => {
         setCpassword(e.target.value)
+    }
+    const profileHandler = (e) => {
+        setFile(e.target.files[0]);
     }
     const handleReset = () => {
         setName('');
@@ -39,27 +44,34 @@ const Register = () => {
     const cancleHandler = () => {
         history.push('/admin');
     }
+    
     const submitHandler = async(e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('profile', file);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('usertype', usertype);
+
         if (password !== cpassword) {
             return alert("Password must be same!!")
         }
         
         try {
-            const res =await fetch('/register', {
+            const res =await axios.post('/register',formData, {
                 method: 'POST',
                 headers: {
-                    "content-type":"application/json"
+                    "content-type":"multipart/form-data"
                 },
-                body:JSON.stringify({name,email,password,usertype})
+                
             })
-            // if (!res.ok) {
-            //     throw new Error("Error")
-            // }
-            const data = await res.json();
-            if (res.status === 400) {
+            const data = await res.data;
+            if (data.error) {
+                console.log(data)
                 throw new Error(data.error)
             }
+            console.log("res:",data)
             
             alert("User Registation Successfully!!")
             handleReset()
@@ -67,6 +79,7 @@ const Register = () => {
             history.push('/login')
         } catch (e)
         {
+            console.log(e)
                 alert(e)
         }
     }
@@ -77,6 +90,7 @@ const Register = () => {
         <Layout >
         <Card>
             <form onSubmit={submitHandler}>
+            
             <div className={classes.control}>
             <label htmlFor='name'>Name</label>
             <input 
@@ -117,6 +131,17 @@ const Register = () => {
                         value={cpassword}
                         onChange={cpasswordHandler}
                         minLength='7'
+                    />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor='profile'>Profile Image</label>
+                    <input
+                        required
+                        type='file'
+                        id='profile'
+                        
+                        onChange={profileHandler}
+                        
                     />
           </div>
           <div className={classes.control}>

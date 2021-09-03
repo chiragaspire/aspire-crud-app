@@ -49,6 +49,22 @@
     padding:1rem;
   } */
 
+  .imgcontrol{
+    display:block;
+    height:12rem;
+    width:100%;
+    
+  } 
+ .imgcontrol img{
+   border-radius: 50%;
+   display:block;
+   width:50%;
+   margin:0 auto;
+   height:100%;
+  
+}
+ 
+
   .actions {
       margin-top: 2rem;
     text-align: center;
@@ -98,6 +114,15 @@
   background-color: #c72918;
 }
 
+@media only screen and (max-width: 1248px) {
+.imgcontrol{
+  height:8rem;
+} 
+.imgcontrol img{
+  width:30%;
+}
+}
+
 @media only screen and (max-width: 768px) {
   .control input,
   .control textarea {
@@ -106,12 +131,15 @@
   .control label {
     font-size: 0.5rem;
   }
-
+  .imgcontrol{
+    height:5rem;
+  } 
+ 
   .actions {
     margin-top: 0.5rem;
 }
 
-.actions button {
+.actions button,.actions .delete {
     font-size: 0.5rem;
 }
 
@@ -124,3 +152,11 @@
 
 }
 
+@media only screen and (max-width: 448px) {
+  
+  .imgcontrol img{
+    width:60%;
+  } 
+ 
+ 
+}

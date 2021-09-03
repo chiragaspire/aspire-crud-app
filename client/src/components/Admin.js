@@ -186,7 +186,7 @@ function stableSort(array, comparator) {
    let current = 1;
    if (history.location.hash) {
     current = history.location.hash.replace('#', '');
-     current = parseInt(current)
+    current = parseInt(current)
     
    }
     
