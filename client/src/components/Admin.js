@@ -264,19 +264,14 @@ function stableSort(array, comparator) {
               ))}
             </tbody>
           </table>
-          <nav aria-label="Page navigation example">
+          <nav className={classes.navpage} aria-label="Page navigation example">
             <ul class="pagination">
                 
-                  
                 {page > 0 && (<li class="page-item "  onClick={handleChangePrevPage}><a class="page-link" href={`#${current-1}`}>Previous</a></li>
                 )}
                 {Array(pagesize + 1).fill(1).map((el, i) => 
-            
-                  
                     <li class="page-item " id="pages" onClick={() => handleChangePage(i)} key={i}><a class="page-link" href={`#${i + 1}`}>{i + 1}</a></li>
-                  
                 ) }
-                
               { page<pagesize && (<li class="page-item" onClick={handleChangeNextPage}><a class="page-link" href={`#${current+1}`}>Next</a></li>
               )}
               </ul>

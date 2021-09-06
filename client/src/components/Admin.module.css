@@ -7,7 +7,7 @@
     background-color: white;
     width: fit-content;
     max-width: 95%;
-
+    
   }
 table{
  display:block;
@@ -79,6 +79,7 @@ background-color: #c72918;
   margin-left: 1rem;
 }
 
+
 @media only screen and (max-width: 748) {
   
   table{
@@ -94,4 +95,12 @@ background-color: #c72918;
 
 
 }
+@media only screen and (max-width: 448px) {
+  
 
+
+.navpage ul li a{
+  font-size: 0.3rem;
+  padding: 0.5rem;
+}
+}
